@@ -1,0 +1,30 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+config.local.yaml
+config.local.yml
+*.pem
+*.key
+
+# Local and downloaded data
+data/raw/
+data/interim/
+data/processed/
+data/**/*.csv
+data/**/*.json
+data/**/*.parquet
+data/**/*.xlsx
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Power BI local recovery and temporary files
+*.pbix.autorecover
+*.tmp

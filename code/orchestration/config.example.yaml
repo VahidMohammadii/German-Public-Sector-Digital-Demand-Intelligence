@@ -1,0 +1,21 @@
+# Example only. Replace values after the TED query scope and deployment target are confirmed.
+# Never place access tokens or passwords in this file.
+
+source:
+  name: ted
+  country_code: DE
+  date_from: "YYYY-MM-DD"
+  date_to: "YYYY-MM-DD"
+  cpv_codes: []
+  notice_types: []
+
+storage:
+  # Use an environment variable or local ignored file for credentials.
+  connection_string_env: DATABASE_URL
+  raw_data_directory: data/raw
+  processed_data_directory: data/processed
+
+pipeline:
+  log_level: INFO
+  max_retries: 3
+  fail_on_quality_errors: true
