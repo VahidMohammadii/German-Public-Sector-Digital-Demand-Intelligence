@@ -14,7 +14,7 @@ Organizations considering public-sector digital services need a structured way t
 
 ## Objective
 
-Design and implement a modular analytical workflow that collects a defined set of TED notices, validates and standardizes them, stores them for SQL analysis, and presents interpretable demand indicators in Power BI.
+Design and implement a modular analytical workflow that collects a defined set of TED notices, validates and standardizes them, stores them for SQL analysis, and presents interpretable demand indicators in "Power BI".
 
 The output is intended to support **prioritization for further review**, not to make an automated market-entry or bid/no-bid decision.
 
