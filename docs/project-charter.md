@@ -14,9 +14,9 @@ Organizations considering public-sector digital services need a structured way t
 
 ## Objective
 
-Design and implement a modular analytical workflow that collects a defined set of TED notices, validates and standardizes them, stores them for SQL analysis, and presents interpretable demand indicators in "Power BI".
+Design and implement a modular analytical workflow that collects a defined set of TED notices, validates and standardizes them, stores them for SQL analysis, and presents interpretable demand indicators in Power BI.
 
-The output is intended to support **prioritization for further review**, not to make an automated market-entry or bid/no-bid decision.
+The output supports **prioritization for further review**, not an automated market-entry or bid/no-bid decision.
 
 ## Intended users
 
@@ -51,7 +51,7 @@ The output is intended to support **prioritization for further review**, not to 
 | What is known about awards? | Award count and reported award value | Award records and values may be incomplete |
 | What merits further review? | Transparent, documented ranking criteria | A ranking is a screening aid, not proof of opportunity |
 
-Metric definitions will be finalized after the API fields and sample data are inspected.
+Metric definitions will be finalized after profiling the API fields and sample data.
 
 ## Deliverables
 
@@ -81,4 +81,4 @@ I own the project scope, implementation choices, execution of the tools, interpr
 
 ## Status
 
-This charter describes the planned project. Data ingestion, SQL storage, analysis, and the Power BI dashboard are not yet implemented.
+Local implementation has started: the TED query has been validated, the MySQL schema and one-notice ingestion test have been checked, and historical ingestion is in progress. The working script and database schema have not yet been added to this repository. Power BI remains planned. See [Implementation Status](implementation-status.md).
