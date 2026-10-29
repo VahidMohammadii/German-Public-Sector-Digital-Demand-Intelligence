@@ -1,8 +1,8 @@
-# Planned Data Architecture
+# Data Architecture
 
 ## Overview
 
-The architecture separates source retrieval, quality control, transformation, analytical storage, metrics, and business interpretation. This makes it possible to update the TED connector or add a new source without silently mixing evidence.
+This diagram shows the target architecture. Some steps have been tested locally as a proof of concept; the full retrieval, repository code, and Power BI layer are still in progress. See [Implementation Status](implementation-status.md) for the verified state.
 
 ```mermaid
 flowchart LR
@@ -34,13 +34,11 @@ flowchart LR
     D --> E --> F --> G --> H --> I --> J --> K --> L
 ```
 
-This is a logical design, not a claim that the components have been built.
-
 ## Component responsibilities
 
 ### 1. Source connector
 
-A dedicated TED client will own API requests, query parameters, pagination, retries, and response handling. Source-specific behavior should not be embedded in business metrics.
+A dedicated TED client owns API requests, query parameters, pagination, retries, and response handling. Source-specific behavior should not be embedded in business metrics.
 
 ### 2. Run metadata and raw records
 
@@ -53,7 +51,7 @@ Each run should record at minimum:
 - success, partial-success, or failure status;
 - connector/schema version where practical.
 
-Retaining source payloads or a suitable immutable representation helps diagnose changes and rerun transformations. Storage and retention must follow applicable source terms and repository data-handling rules.
+Retaining source payloads or a suitable immutable representation helps diagnose changes and rerun transformations. Storage and retention must follow applicable source terms and data-handling rules.
 
 ### 3. Quality checks
 
@@ -69,7 +67,7 @@ The model should preserve separate entities for notices and awards and retain tr
 
 ### 6. Metrics and Power BI
 
-Metric logic should have one documented definition and be traceable to the model. Power BI should distinguish notice counts from award counts and should show the period, filter scope, and known coverage limits. Refresh only occurs after new data has been collected and loaded successfully.
+Metric logic should have one documented definition and be traceable to the model. Power BI should distinguish notice counts from award counts and should show the period, filter scope, and known coverage limits. Refresh occurs only after new data has been collected and loaded successfully.
 
 ### 7. Operational monitoring
 
