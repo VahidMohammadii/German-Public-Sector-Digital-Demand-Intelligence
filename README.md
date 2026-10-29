@@ -1,8 +1,8 @@
 # German Public-Sector Digital Demand Intelligence
 
-A portfolio project to explore published demand for digital services in Germany's public sector using notices and award information from Tenders Electronic Daily (TED).
+A portfolio project exploring published demand for digital services in Germany's public sector using notices from Tenders Electronic Daily (TED).
 
-> **Project status:** Foundation and design. The data pipeline, SQL database, and Power BI dashboard have not yet been implemented.
+> **Project status (2026-10-29):** Local proof of concept. The TED query, Python-to-MySQL connection, database schema, and one-notice test have been verified. The historical TED retrieval is still in progress. Power BI is not connected yet. See [Implementation Status](docs/implementation-status.md).
 
 ## Project question
 
@@ -10,14 +10,14 @@ A portfolio project to explore published demand for digital services in Germany'
 
 ## Purpose
 
-The project is planned as a modular, reproducible analytics workflow that will:
+The project is being developed as a modular analytics workflow to:
 
 - collect relevant TED notices and, where available, their award information;
-- preserve source records and document retrieval time and query scope;
-- validate and standardize records before analytical use;
+- preserve source identifiers and retrieval-run metadata;
+- validate and standardize records before analysis;
 - store structured data for repeatable SQL analysis;
-- present demand patterns and documented indicators in Power BI;
-- summarize opportunities for further business review, including data limitations.
+- present documented indicators in Power BI;
+- support opportunity screening for further commercial review.
 
 The intended audience is business development, product, and market-analysis professionals.
 
@@ -29,20 +29,21 @@ The intended audience is business development, product, and market-analysis prof
 - Where award information is available, what can it tell us about awarded contracts and suppliers?
 - Which categories merit further commercial assessment, and what evidence supports that prioritization?
 
-The project will distinguish notices from awards. Missing award values or incomplete records will not be treated as zero.
+The project distinguishes notices from awards. Missing award values or incomplete records are not treated as zero.
 
-## Planned workflow
+## Workflow
 
-`TED notices and award notices → ingestion → validation and standardization → SQL analytical model → metrics → Power BI → commercial review`
+`TED Search API → Python ingestion and transformation → MySQL → Power BI`
 
-The workflow is a design target; it does not imply that these components are already operational.
+Python requests TED notices page by page using an iteration token, prepares fields, and writes records to the local MySQL database. MySQL stores notices, CPV classifications, and ingestion-run metadata. Power BI is the planned reporting layer and has not been connected yet.
 
+The current script and SQL setup are local working materials and have not yet been committed to this repository. The [implementation-status log](docs/implementation-status.md) separates verified local progress from repository deliverables.
 
 ## Repository map
 
 | Path | Purpose |
 |---|---|
-| `docs/` | Project scope, architecture, and source documentation |
+| `docs/` | Project scope, architecture, source documentation, and implementation status |
 | `code/ingestion/` | Planned TED API collection components |
 | `code/data_quality/` | Planned validation and quality checks |
 | `code/transformations/` | Planned normalization and classification |
@@ -52,38 +53,19 @@ The workflow is a design target; it does not imply that these components are alr
 | `powerbi/` | Planned Power BI deliverables and selected screenshots |
 | `data/` | Local-only data workspace; raw or sensitive extracts should not be committed |
 
-Folders and components will be added as implementation begins. Git does not retain empty directories.
-
 ## Data and scope
 
-The planned primary source is TED's public procurement notices and related award notices. TED represents published notices available through its service; it is not a complete census of all public purchasing in Germany and does not represent private-sector demand. Coverage and field completeness must be assessed and documented.
+The current test uses TED's public notices API for buyers in Germany and publication dates from 2016-10-28 through 2026-10-29. TED reported 1,316,938 matching notices during query validation; the full retrieval is incomplete. TED represents published notices available through its service, not all public purchasing in Germany or private-sector demand.
 
-This analysis can describe patterns in the observed TED data and help prioritize questions for further review. It cannot, by itself, establish total market size, supplier profitability, or the likelihood that a specific bid will succeed.
-
-See [the source register](docs/data-sources.md) and [project charter](docs/project-charter.md).
-
-## Reproducibility and updates
-
-The intended ingestion process will record its query scope, retrieval timestamp, and run outcome. New records can be appended or reconciled in storage, after which the analytical model and Power BI dataset can be refreshed. Scheduled and hosted refresh will depend on the final deployment environment and the applicable Power BI configuration.
-
-API behavior and schemas can change. The implementation should isolate the TED connector, validate incoming fields, log failures, and document the last successful retrieval.
+See [the source register](docs/data-sources.md), [project charter](docs/project-charter.md), and [implementation status](docs/implementation-status.md).
 
 ## Data handling
 
 - Do not commit credentials, access tokens, or personal secrets.
+- Do not commit checkpoint files or continuation tokens.
 - Do not commit raw bulk extracts unless licensing, size, and privacy have been reviewed.
 - Keep local data and environment-specific settings out of version control.
-- Use synthetic or appropriately small public samples for examples.
-
-## Current status and next steps
-
-1. Confirm the initial TED query scope and relevant digital-service categories.
-2. Review the TED API documentation and record the selected endpoints and fields.
-3. Define a small, reproducible extraction sample.
-4. Specify data-quality rules and the initial SQL model.
-5. Implement ingestion and validation before building dashboard measures.
-
-No completed analysis or dashboard results are claimed at this stage.
+- Use small, appropriately attributed public samples for examples.
 
 ## License
 
