@@ -1,99 +1,44 @@
 # Data Architecture
 
-## Overview
+## Current local workflow
 
-This diagram shows the target architecture. Some steps have been tested locally as a proof of concept; the full retrieval, repository code, and Power BI layer are still in progress. See [Implementation Status](implementation-status.md) for the verified state.
+`TED notice API → Python ingestion → MySQL → Power BI Desktop`
+
+The TED-to-MySQL data load is complete locally for the scope listed in [the data-source register](data-sources.md). Power BI is connected to the local database and an initial report is being built. The reusable ingestion script, populated database, and PBIX are not yet committed to GitHub.
 
 ```mermaid
 flowchart LR
-    subgraph Sources["Sources"]
-        A["TED notice API"]
-        B["TED award information"]
-        C["CPV and NUTS reference data"]
-    end
-
-    subgraph Pipeline["Collection and preparation"]
-        D["Scheduled or manual extraction"]
-        E["Raw record archive and run metadata"]
-        F["Schema and completeness checks"]
-        G["Standardization and classification"]
-    end
-
-    subgraph Analytics["Analytical layer"]
-        H["SQL staging"]
-        I["Relational analytical model"]
-        J["Documented metrics"]
-        K["Power BI dataset and report"]
-    end
-
-    L["Commercial review"]
-
-    A --> D
-    B --> D
-    C --> G
-    D --> E --> F --> G --> H --> I --> J --> K --> L
+    A["TED notice API"] --> B["Python: retrieve and transform"]
+    B --> C["MySQL: notices, CPV, run history"]
+    C --> D["Power BI Desktop: model and visuals"]
 ```
+
+## Planned extension
+
+```mermaid
+flowchart LR
+    A["TED notices"] --> C["Source-aware ingestion"]
+    B["DÖE national notices"] --> C
+    C --> D["MySQL analytical model"]
+    D --> E["Power BI reporting"]
+```
+
+DÖE is a planned second stream for national German notices, including below-threshold procurement. It has not yet been integrated. Keep source identifiers and provenance so coverage and potential overlap between TED and DÖE can be assessed explicitly.
 
 ## Component responsibilities
 
-### 1. Source connector
+### Source connectors and ingestion
 
-A dedicated TED client owns API requests, query parameters, pagination, retries, and response handling. Source-specific behavior should not be embedded in business metrics.
+The Python workflow sends the selected TED query, retrieves pages using iteration tokens, handles transient failures, and loads records to MySQL. The current working script remains local and must be reviewed for credentials and environment-specific configuration before it is added to the repository.
 
-### 2. Run metadata and raw records
+### MySQL model
 
-Each run should record at minimum:
+The local database stores TED notices, CPV reference codes, notice-to-CPV relationships, and ingestion-run metadata. The repository's SQL is a starter schema and may need alignment with the final local implementation before it is used for a fresh setup.
 
-- retrieval start and finish time;
-- query parameters and date window;
-- source endpoint or operation;
-- number of records received and processed;
-- success, partial-success, or failure status;
-- connector/schema version where practical.
+### Power BI
 
-Retaining source payloads or a suitable immutable representation helps diagnose changes and rerun transformations. Storage and retention must follow applicable source terms and data-handling rules.
+Power BI Desktop connects to the local MySQL instance and supports interactive analysis. The first report includes distinct notice count, CPV categories, annual trend, and notice-type codes. The contract-nature transformation is still being debugged and is not considered validated.
 
-### 3. Quality checks
+## Data handling
 
-Checks should cover expected fields and types, duplicate identifiers, date validity, currency/value consistency, and missingness. A failed check should be visible in logs and should not silently produce misleading metrics.
-
-### 4. Transformations
-
-Transformations should normalize dates, identifiers, currencies where conversion is supported, buyer and geographic fields, CPV classifications, and relationships between notices and awards. Derived classifications must have documented rules and a version.
-
-### 5. SQL analytical model
-
-The model should preserve separate entities for notices and awards and retain traceability to source identifiers. Candidate dimensions include date, buyer, geography, CPV/service category, and procurement status. Exact tables will be determined after field profiling.
-
-### 6. Metrics and Power BI
-
-Metric logic should have one documented definition and be traceable to the model. Power BI should distinguish notice counts from award counts and should show the period, filter scope, and known coverage limits. Refresh occurs only after new data has been collected and loaded successfully.
-
-### 7. Operational monitoring
-
-The pipeline should capture errors, retry transient failures within defined limits, and expose the last successful run. If hosted scheduling is introduced, its availability and Power BI refresh configuration must be documented separately.
-
-## Update flow
-
-1. Request newly published or changed records using a documented time window.
-2. Validate the response and record the run outcome.
-3. Insert or reconcile records using stable source identifiers.
-4. Recompute affected analytical tables or views.
-5. Refresh the Power BI dataset after a successful load.
-6. Surface failures and the last successful retrieval time.
-
-The exact incremental strategy depends on TED API capabilities, update semantics, and rate limits verified during implementation.
-
-## Design principles
-
-- Keep source-specific code isolated.
-- Preserve source identifiers and retrieval provenance.
-- Make missing, unavailable, and zero values distinguishable.
-- Make transformations and metric rules reviewable.
-- Keep credentials outside source control.
-- Treat API schemas and behavior as changeable.
-- Add a source as a separate documented stream before combining it analytically.
-
-## Planned repository mapping
-
-See [repository structure](repository-structure.md) for the folder-level plan.
+Keep credentials, continuation tokens, checkpoint files, and the populated database outside version control. Document the extract period and source when sharing report outputs. See [implementation status](implementation-status.md) for local progress and remaining work.
