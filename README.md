@@ -1,72 +1,56 @@
 # German Public-Sector Digital Demand Intelligence
 
-A portfolio project exploring published demand for digital services in Germany's public sector using notices from Tenders Electronic Daily (TED).
-
-> **Project status (2026-10-29):** Local proof of concept. The TED query, Python-to-MySQL connection, database schema, and one-notice test have been verified. The historical TED retrieval is still in progress. Power BI is not connected yet. See [Implementation Status](docs/implementation-status.md).
+A portfolio analytics project exploring published public procurement demand in Germany, with an initial focus on digital-service opportunities. It combines TED notice data, a Python ingestion workflow, a MySQL relational model, and a Power BI report.
 
 ## Project question
 
-**How can published TED notices and contract award information be used to identify and prioritize public-sector digital-service market opportunities in Germany for further commercial assessment?**
+**How can published procurement notices help identify recurring buyers, categories, and changes in Germany's public-sector digital-service demand?**
 
-## Purpose
+## Current results
 
-The project is being developed as a modular analytics workflow to:
+- **TED scope:** German buyers; publication dates from **2016-10-28 through 2026-10-29** (inclusive).
+- **Loaded dataset:** **1,316,938 distinct notices** in the local MySQL database.
+- **Dashboard:** Power BI Desktop is connected to MySQL and currently shows unique notice count, the top 10 CPV categories, annual publication trend, and top 10 TED notice-type codes.
+- **Time coverage:** 2026 is partial through 29 October. The documented range can be extended later by retrieving another period.
+- **Next source:** Germany's Datenservice Öffentlicher Einkauf (DÖE) is planned as a second source for below-threshold notices; it has not yet been integrated.
+- **Repository contents:** reusable starter SQL and project documentation are committed. The working ingestion script, populated database, and Power BI report remain local and are not included in this repository yet.
 
-- collect relevant TED notices and, where available, their award information;
-- preserve source identifiers and retrieval-run metadata;
-- validate and standardize records before analysis;
-- store structured data for repeatable SQL analysis;
-- present documented indicators in Power BI;
-- support opportunity screening for further commercial review.
+## Data flow
 
-The intended audience is business development, product, and market-analysis professionals.
+`TED API → Python → MySQL → Power BI Desktop`
 
-## Planned analytical questions
+Python retrieves TED notices using iteration-token pagination and loads structured data into MySQL. MySQL stores notices, CPV classifications, and ingestion-run metadata. Power BI connects to the relational model for interactive analysis.
 
-- How does the volume of relevant published notices change over time?
-- Which public buyers, regions, and digital-service categories appear most often?
-- How frequently do buyers publish relevant opportunities?
-- Where award information is available, what can it tell us about awarded contracts and suppliers?
-- Which categories merit further commercial assessment, and what evidence supports that prioritization?
+## Skills demonstrated
 
-The project distinguishes notices from awards. Missing award values or incomplete records are not treated as zero.
+- Public API data retrieval and token-based pagination
+- Python data processing and MySQL Connector
+- Relational schema design, keys, and SQL
+- Power BI data modeling, filtering, and time-series reporting
+- Source documentation, data coverage, and reproducible project communication
 
-## Workflow
+## Repository guide
 
-`TED Search API → Python ingestion and transformation → MySQL → Power BI`
+- `docs/`: project scope, architecture, data sources, and implementation status
+- `code/database/schema/`: starter MySQL schema
+- `code/analytics/metrics/`: draft metric definitions
+- `powerbi/`: report and screenshot documentation; the PBIX is currently local
+- `data/`: local workspace guidance; raw bulk data is not committed
 
-Python requests TED notices page by page using an iteration token, prepares fields, and writes records to the local MySQL database. MySQL stores notices, CPV classifications, and ingestion-run metadata. Power BI is the planned reporting layer and has not been connected yet.
+## Reproducibility and data handling
 
-The current script and SQL setup are local working materials and have not yet been committed to this repository. The [implementation-status log](docs/implementation-status.md) separates verified local progress from repository deliverables.
+The local database and Power BI file depend on the owner's Windows setup. Credentials, API continuation tokens, checkpoint files, and the bulk extract are intentionally excluded. Setup instructions and sanitized, reusable ingestion code are the next repository deliverables.
 
-## Repository map
+TED records represent published notices available in the selected source and query scope. The notice count is a count of distinct notice records, not a measure of contract value or total German public procurement.
 
-| Path | Purpose |
-|---|---|
-| `docs/` | Project scope, architecture, source documentation, and implementation status |
-| `code/ingestion/` | Planned TED API collection components |
-| `code/data_quality/` | Planned validation and quality checks |
-| `code/transformations/` | Planned normalization and classification |
-| `code/database/` | Planned SQL schema and loading logic |
-| `code/analytics/` | Planned analytical queries and metric definitions |
-| `code/orchestration/` | Planned pipeline configuration and execution |
-| `powerbi/` | Planned Power BI deliverables and selected screenshots |
-| `data/` | Local-only data workspace; raw or sensitive extracts should not be committed |
+## Sources and reuse
 
-## Data and scope
+TED is the primary source for the current analysis. DÖE is a planned addition for national below-threshold coverage. Review the [data-source register](docs/data-sources.md) for source links, scope, and data-handling notes. Source data terms and attribution requirements should be checked before redistribution; this repository does not include the downloaded bulk data.
 
-The current test uses TED's public notices API for buyers in Germany and publication dates from 2016-10-28 through 2026-10-29. TED reported 1,316,938 matching notices during query validation; the full retrieval is incomplete. TED represents published notices available through its service, not all public purchasing in Germany or private-sector demand.
+## Project documentation
 
-See [the source register](docs/data-sources.md), [project charter](docs/project-charter.md), and [implementation status](docs/implementation-status.md).
+- [Architecture](docs/architecture.md)
+- [Implementation status](docs/implementation-status.md)
+- [Project charter](docs/project-charter.md)
+- [Data sources](docs/data-sources.md)
 
-## Data handling
-
-- Do not commit credentials, access tokens, or personal secrets.
-- Do not commit checkpoint files or continuation tokens.
-- Do not commit raw bulk extracts unless licensing, size, and privacy have been reviewed.
-- Keep local data and environment-specific settings out of version control.
-- Use small, appropriately attributed public samples for examples.
-
-## License
-
-A license has not yet been selected. Until one is added, reuse rights for this repository's original materials are not granted by default. Source data remains subject to TED and applicable data-use terms.
