@@ -35,9 +35,11 @@ The Python workflow sends the selected TED query, retrieves pages using iteratio
 
 The local database stores TED notices, CPV reference codes, notice-to-CPV relationships, and ingestion-run metadata. The repository's SQL is a starter schema and may need alignment with the final local implementation before it is used for a fresh setup.
 
+The TED `contract_nature` value is a JSON array that may contain repeated lot-level entries. The planned analytical extension is a MySQL view with one distinct `notice_id`–contract-nature pair per row. The view and its connection to the report remain to be implemented and validated.
+
 ### Power BI
 
-Power BI Desktop connects to the local MySQL instance and supports interactive analysis. The first report includes distinct notice count, CPV categories, annual trend, and notice-type codes. The contract-nature transformation is still being debugged and is not considered validated.
+Power BI Desktop connects to the local MySQL instance and supports interactive analysis. The current report includes total distinct notices, CPV categories, annual publication trend, notice types with readable labels, and monthly trend with a year slicer. See [dashboard notes](powerbi-dashboard.md) for the purpose, metric definitions, and validation status.
 
 ## Data handling
 
