@@ -1,13 +1,10 @@
 # Power BI Dashboard Notes
 
-## Purpose and audiences
+## Purpose and intended users
 
-The report is a portfolio artifact showing an end-to-end analytics workflow and how published procurement notices can be explored over time and by category.
+The report supports exploration of published German procurement notices over time and by category. Its intended users are procurement analysts, public-sector stakeholders, and market researchers interested in patterns in published notices.
 
-- **Primary audience:** recruiters and analytics managers evaluating practical data, business-analysis, and digitalization skills.
-- **Secondary audience:** public-sector analysts interested in patterns in published notices.
-
-The intended emphasis is a small set of readable visuals that answer explicit questions, with data scope and measure definitions visible.
+The report should use a small set of readable visuals that answer explicit analytical questions, with data scope and measure definitions visible.
 
 ## Current local report
 
