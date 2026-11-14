@@ -6,14 +6,9 @@ A portfolio analytics project exploring published public procurement demand in G
 
 **How can published procurement notices help identify recurring buyers, categories, and changes in Germany's public-sector digital-service demand?**
 
-## Purpose and audience
+## Purpose and intended use
 
-This project demonstrates an end-to-end analytics workflow: retrieving public data, processing and storing it, modeling it for analysis, and presenting findings through a report.
-
-- **Primary audience:** recruiters and analytics managers reviewing practical evidence of data, business-analysis, and digitalization skills.
-- **Secondary audience:** public-sector analysts interested in patterns in published procurement notices.
-
-The report is designed to make the scope, measure definitions, and current source coverage clear to both audiences.
+This project examines published procurement notices to make patterns in buyers, categories, and publication timing easier to explore. The report is intended for analysts and public-sector stakeholders interested in Germany's published procurement demand. It makes the data scope, measure definitions, and source coverage explicit.
 
 ## Current results
 
