@@ -16,7 +16,7 @@ This project examines published procurement notices to make patterns in buyers, 
 - **Loaded dataset:** **1,316,938 distinct notices** in the local MySQL database.
 - **Dashboard:** Power BI Desktop is connected to MySQL. Current report visuals include total distinct notices, top 10 CPV categories, annual publication trend, TED notice types with readable labels, and a monthly trend that can be filtered by year.
 - **Time coverage:** 2026 is partial through 29 October. The documented range can be extended later by retrieving another period.
-- **Contract nature:** TED's contract-nature field is stored as JSON arrays and may repeat values across lots. A Power Query normalization preview produced works/services/supplies rows, but applying the query failed with an OLE DB/ODBC expression error. It is not in the validated report yet. The next planned route is a MySQL view, followed by validation before adding a visualization.
+- **Contract nature:** Standardization of lot-level contract-nature values is planned. The category analysis will be added after the MySQL view is implemented and validated.
 - **Next source:** Germany's Datenservice Öffentlicher Einkauf (DÖE) is planned as a second source for below-threshold notices; it has not yet been integrated.
 - **Repository contents:** reusable starter SQL and project documentation are committed. The working ingestion script, populated database, and Power BI report remain local and are not included in this repository yet.
 
