@@ -35,7 +35,7 @@ The Python workflow sends the selected TED query, retrieves pages using iteratio
 
 The local database stores TED notices, CPV reference codes, notice-to-CPV relationships, and ingestion-run metadata. The repository's SQL is a starter schema and may need alignment with the final local implementation before it is used for a fresh setup.
 
-The TED `contract_nature` value is a JSON array that may contain repeated lot-level entries. The Power Query attempt to normalize it produced a clean preview but failed during model apply. The planned next step is a MySQL view with one distinct `notice_id`–contract-nature pair per row. The view and its relationship to the report have not yet been implemented or validated.
+The TED `contract_nature` value is a JSON array that may contain repeated lot-level entries. The planned analytical extension is a MySQL view with one distinct `notice_id`–contract-nature pair per row. The view and its connection to the report remain to be implemented and validated.
 
 ### Power BI
 
