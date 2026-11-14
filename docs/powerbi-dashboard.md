@@ -27,13 +27,11 @@ These are prototype report visuals, not a claim that every analytical field has 
 - TED notice-type codes are not merged merely because their names look similar. The lookup labels preserve each official code as a separate category.
 - Month names are displayed in calendar order. The year slicer selects the annual context for the monthly trend.
 
-## Contract-nature normalization: pending
+## Contract-nature analysis: planned
 
-The source `contract_nature` field contains JSON arrays, for example `["works", "works"]`, because values can occur at lot level. Treating each distinct JSON string as a category gives misleading groups.
+The source `contract_nature` field contains JSON arrays because values can occur at lot level. For analysis, the values need to be standardized into distinct notice–nature pairs so an individual notice is counted once within each category.
 
-A Power Query reference was built to parse the JSON list, expand it to rows, and remove duplicate `notice_id`–nature pairs. Its preview displayed simple values such as `works`, `services`, and `supplies`, but **Close & Apply failed** with an OLE DB/ODBC expression error naming both the reference query and the main notices query. The normalized table is not loaded into the model, so there is currently no validated contract-nature visualization.
-
-The planned next step is to create a MySQL view that returns distinct notice–nature pairs, test the result in MySQL, and then connect it to Power BI. Only after validating counts and filter behavior should a contract-nature chart be added.
+A MySQL view is planned to provide this normalized dataset. After creating it, the results and filter behavior will be validated before adding a contract-nature visual.
 
 ## Interpretation and coverage
 
