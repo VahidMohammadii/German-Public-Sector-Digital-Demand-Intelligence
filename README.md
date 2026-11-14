@@ -1,19 +1,31 @@
 # German Public-Sector Digital Demand Intelligence
 
-A portfolio analytics project exploring published public procurement demand in Germany, with an initial focus on digital-service opportunities. It combines TED notice data, a Python ingestion workflow, a MySQL relational model, and a Power BI report.
+A portfolio analytics project exploring published public procurement demand in Germany, with an initial focus on digital-service opportunities. It combines TED notice data, a Python ingestion workflow, a MySQL relational model, and an interactive Power BI report.
 
 ## Project question
 
 **How can published procurement notices help identify recurring buyers, categories, and changes in Germany's public-sector digital-service demand?**
 
+## Purpose and audience
+
+This project demonstrates an end-to-end analytics workflow: retrieving public data, processing and storing it, modeling it for analysis, and presenting findings through a report.
+
+- **Primary audience:** recruiters and analytics managers reviewing practical evidence of data, business-analysis, and digitalization skills.
+- **Secondary audience:** public-sector analysts interested in patterns in published procurement notices.
+
+The report is designed to make the scope, measure definitions, and current source coverage clear to both audiences.
+
 ## Current results
 
 - **TED scope:** German buyers; publication dates from **2016-10-28 through 2026-10-29** (inclusive).
 - **Loaded dataset:** **1,316,938 distinct notices** in the local MySQL database.
-- **Dashboard:** Power BI Desktop is connected to MySQL and currently shows unique notice count, the top 10 CPV categories, annual publication trend, and top 10 TED notice-type codes.
+- **Dashboard:** Power BI Desktop is connected to MySQL. Current report visuals include total distinct notices, top 10 CPV categories, annual publication trend, TED notice types with readable labels, and a monthly trend that can be filtered by year.
 - **Time coverage:** 2026 is partial through 29 October. The documented range can be extended later by retrieving another period.
+- **Contract nature:** TED's contract-nature field is stored as JSON arrays and may repeat values across lots. A Power Query normalization preview produced works/services/supplies rows, but applying the query failed with an OLE DB/ODBC expression error. It is not in the validated report yet. The next planned route is a MySQL view, followed by validation before adding a visualization.
 - **Next source:** Germany's Datenservice Öffentlicher Einkauf (DÖE) is planned as a second source for below-threshold notices; it has not yet been integrated.
 - **Repository contents:** reusable starter SQL and project documentation are committed. The working ingestion script, populated database, and Power BI report remain local and are not included in this repository yet.
+
+See the [Power BI dashboard notes](docs/powerbi-dashboard.md) and [implementation status](docs/implementation-status.md) for details.
 
 ## Data flow
 
@@ -31,7 +43,7 @@ Python retrieves TED notices using iteration-token pagination and loads structur
 
 ## Repository guide
 
-- `docs/`: project scope, architecture, data sources, and implementation status
+- `docs/`: project scope, architecture, data sources, dashboard notes, and implementation status
 - `code/database/schema/`: starter MySQL schema
 - `code/analytics/metrics/`: draft metric definitions
 - `powerbi/`: report and screenshot documentation; the PBIX is currently local
@@ -53,4 +65,4 @@ TED is the primary source for the current analysis. DÖE is a planned addition f
 - [Implementation status](docs/implementation-status.md)
 - [Project charter](docs/project-charter.md)
 - [Data sources](docs/data-sources.md)
-
+- [Power BI dashboard notes](docs/powerbi-dashboard.md)
