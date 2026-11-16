@@ -170,7 +170,7 @@ def ensure_table(cursor, database: str, table: str, headers: list[str]) -> None:
         definitions.append("KEY `idx_notice_version` (`export_month`, `noticeIdentifier`, `noticeVersion`)")
     cursor.execute(
         f"CREATE TABLE IF NOT EXISTS {qtable} (" + ", ".join(definitions) + ") "
-        "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+        "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     )
 
     cursor.execute(
@@ -208,6 +208,7 @@ def load_sources(specs: list[dict], sources: list[tuple[str, TextIO]], export_mo
     )
     try:
         cursor = connection.cursor()
+        cursor.execute("SET time_zone = '+00:00'")
         for spec in specs:
             ensure_table(cursor, database, spec["table"], spec["headers"])
 
