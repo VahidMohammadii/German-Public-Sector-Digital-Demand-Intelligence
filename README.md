@@ -34,9 +34,11 @@ See the [Power BI dashboard notes](docs/powerbi-dashboard.md) and [implementatio
 
 ## Data flow
 
-`TED API → Python → MySQL → Power BI Desktop`
+`TED API → Python → TED tables`  
+`DÖE monthly CSV export → Python loader → separate DÖE staging tables`  
+`TED analytical model → Power BI Desktop`
 
-Python retrieves TED notices using iteration-token pagination and loads structured data into MySQL. MySQL stores notices, CPV classifications, and ingestion-run metadata. Power BI connects to the relational model for interactive analysis.
+Python retrieves TED notices using iteration-token pagination and loads structured data into MySQL. The DÖE loader imports monthly CSV exports into separate `doe_raw_*` staging tables while preserving notice versions. Power BI currently connects to the TED analytical model; the shared TED–DÖE layer is a later stage.
 
 ## Skills demonstrated
 
@@ -63,7 +65,7 @@ TED records represent published notices available in the selected source and que
 
 ## Sources and reuse
 
-TED is the primary source for the current analysis. DÖE is a planned addition for national below-threshold coverage. Review the [data-source register](docs/data-sources.md) for source links, scope, and data-handling notes. Source data terms and attribution requirements should be checked before redistribution; this repository does not include the downloaded bulk data.
+TED is the source for the current report. DÖE is being staged separately so that legal-basis classification and cross-source duplicate handling can be defined before the sources are combined. Review the [data-source register](docs/data-sources.md) for source links, scope, and data-handling notes. Source data terms and attribution requirements should be checked before redistribution; this repository does not include the downloaded bulk data.
 
 ## Project documentation
 
