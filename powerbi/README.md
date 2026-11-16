@@ -1,16 +1,9 @@
-
 # Power BI
 
+The local Power BI Desktop report is connected to the TED dataset in MySQL and contains two pages: **Market Overview** and **Time & Contract Analysis**.
 
+The report includes a distinct notice KPI, annual and monthly publication trends, the top 10 CPV categories, TED notice types with readable labels, and counts by contract nature. The second page currently shows the 2026 monthly and contract-nature view; 2026 coverage is partial through 29 October.
 
-This directory is reserved for the Power BI report and selected screenshots after the analytical model and measures have been validated.
+The PBIX and populated database remain local. Selected screenshots are embedded in the project [README](../README.md) and stored in `assets/`.
 
-
-Before publishing a report:
-- document the model relationships and metric definitions;
-- state the extract period and latest successful data retrieval;
-- distinguish notices from awards;
-- show relevant data completeness limitations;
-- verify that no credentials or sensitive local connection details are embedded.
-
-No Power BI file or dashboard results are available yet.
+See [dashboard notes](../docs/powerbi-dashboard.md) for metric definitions, model details, coverage, and interpretation limits.
