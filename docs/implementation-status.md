@@ -37,7 +37,7 @@ The TED `contract_nature` field stores lot-level JSON values. The MySQL view pro
 
 - **TED:** primary source for the current loaded dataset and report.
 - **DÖE:** planned second source for German below-threshold procurement notices. Acquisition, schema mapping, deduplication, and integration are future work.
-- **Repository code:** committed SQL is a starter schema. Reusable ingestion code and sanitized setup instructions are planned deliverables.
+- **Repository code:** includes the DÖE monthly loader, its usage guide, and starter SQL. The populated database and TED working ingestion script remain local.
 
 ## Data handling
 
