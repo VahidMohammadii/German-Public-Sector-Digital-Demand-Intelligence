@@ -24,14 +24,14 @@ The date range describes the current local extract; 2026 coverage is partial thr
 | Pilot period | September 2026 |
 | Pilot profile | 19 normalized CSV tables; 477,492 rows; 23,517 notice versions and 23,357 distinct notice identifiers |
 | Version key | `noticeIdentifier` + `noticeVersion` |
-| Staging | Separate `doe_raw_*` tables in the local MySQL schema |
+| Staging design | Loader creates separate `doe_raw_*` tables in the local MySQL schema |
 | Documentation | [Open Data API](https://oeffentlichevergabe.de/documentation/swagger-ui/opendata/index.html#/opendata/getExportAsEforms) · [Publication policy](https://oeffentlichevergabe.de/ui/de/publicationPolicy) |
 
 The monthly export contains all notice versions published in that month, so the DÖE source is not limited to below-threshold notices. Threshold classification and cross-source deduplication are defined in the analytical layer after reviewing legal-basis and notice-type fields. The September pilot includes 2,568 notice versions without `procedureLegalBasis`; these remain unclassified until the mapping is documented. Raw CSV exports remain local and are not committed.
 
 ## Selected fields and reference data
 
-The initial TED field set includes publication number and date, notice type, title, buyer, country, CPV classification, and tender deadline. The local MySQL model also tracks notice-to-CPV associations and ingestion runs. Field mappings should be confirmed against the committed schema and representative source records as the reusable ingestion code is packaged.
+The TED field set includes publication number and date, notice type, title, buyer, country, CPV classification, and tender deadline. The local MySQL model also tracks notice-to-CPV associations and ingestion runs. DÖE pilot field selections and version-aware joins are documented in [the DÖE pilot note](doe-pilot.md).
 
 The local setup includes CPV reference descriptions retrieved from TED reference material. Reference version and retrieval details should be recorded if the list is distributed with the project.
 
