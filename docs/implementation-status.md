@@ -1,7 +1,7 @@
 # Implementation Status
 
 **Last updated:** 2026-11-16  
-**Overall status:** TED historical dataset loaded locally; the two-page Power BI report is functional, including normalized contract-nature analysis. DÖE integration and publication of reusable ingestion code remain future work. The populated database and PBIX are not committed to this repository.
+**Overall status:** TED historical dataset loaded locally; the two-page Power BI report is functional, including normalized contract-nature analysis. The DÖE monthly export pilot is profiled, and a reusable source-isolated staging loader is available. The populated database and PBIX are not committed to this repository.
 
 This log separates work verified on the project owner's Windows laptop from files available in GitHub. Counts below refer to the local database unless explicitly attributed to TED query scope.
 
@@ -17,6 +17,7 @@ This log separates work verified on the project owner's Windows laptop from file
 - Added the contract-nature analysis to Power BI and linked the view to the notices table by `notice_id`.
 - Formatted the KPI with thousands separators and count labels in thousands for readability.
 - Added selected dashboard screenshots to the repository.
+- Profiled the September 2026 DÖE monthly CSV export and prepared a version-aware loader for its 19 normalized tables.
 
 ## Current query and data coverage
 
