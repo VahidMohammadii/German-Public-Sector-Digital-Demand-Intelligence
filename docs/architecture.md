@@ -13,17 +13,17 @@ flowchart LR
     C --> D["Power BI Desktop: model and visuals"]
 ```
 
-## Planned extension
+## Source-aware extension
 
 ```mermaid
-flowchart LR
-    A["TED notices"] --> C["Source-aware ingestion"]
-    B["DÖE national notices"] --> C
-    C --> D["MySQL analytical model"]
-    D --> E["Power BI reporting"]
+flowchart TB
+    A["TED notices"] --> C["Shared analytical layer"]
+    B["DÖE monthly CSV export"] --> D["DÖE raw staging tables"]
+    D --> C
+    C --> E["Power BI reporting"]
 ```
 
-DÖE is a planned second stream for national German notices, including below-threshold procurement. It has not yet been integrated. Keep source identifiers and provenance so coverage and potential overlap between TED and DÖE can be assessed explicitly.
+The DÖE monthly loader stages the normalized CSV files in separate `doe_raw_*` tables. Notice versions are preserved with the source key `(noticeIdentifier, noticeVersion)`. Threshold classification and cross-source deduplication are applied only in the shared analytical layer.
 
 ## Component responsibilities
 
@@ -35,11 +35,11 @@ The Python workflow sends the selected TED query, retrieves pages using iteratio
 
 The local database stores TED notices, CPV reference codes, notice-to-CPV relationships, and ingestion-run metadata. The repository's SQL is a starter schema and may need alignment with the final local implementation before it is used for a fresh setup.
 
-The TED `contract_nature` value is a JSON array that may contain repeated lot-level entries. The planned analytical extension is a MySQL view with one distinct `notice_id`–contract-nature pair per row. The view and its connection to the report remain to be implemented and validated.
+The TED `contract_nature` value is a JSON array that may contain repeated lot-level entries. A MySQL view provides one distinct `notice_id`–contract-nature pair per row and is connected to the report.
 
 ### Power BI
 
-Power BI Desktop connects to the local MySQL instance and supports interactive analysis. The current report includes total distinct notices, CPV categories, annual publication trend, notice types with readable labels, and monthly trend with a year slicer. See [dashboard notes](powerbi-dashboard.md) for the purpose, metric definitions, and validation status.
+Power BI Desktop connects to the local MySQL instance and supports interactive analysis. The current report includes total distinct TED notices, CPV categories, annual publication trend, notice types with readable labels, and monthly trend with a year slicer. The DÖE staged data is not yet part of the report measures. See [dashboard notes](powerbi-dashboard.md) for the purpose, metric definitions, and validation status.
 
 ## Data handling
 
