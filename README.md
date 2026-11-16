@@ -74,4 +74,5 @@ TED is the source for the current report. The DÖE loader prepares a separate st
 - [Implementation status](docs/implementation-status.md)
 - [Project charter](docs/project-charter.md)
 - [Data sources](docs/data-sources.md)
+- [DÖE pilot and staging model](docs/doe-pilot.md)
 - [Power BI dashboard notes](docs/powerbi-dashboard.md)
