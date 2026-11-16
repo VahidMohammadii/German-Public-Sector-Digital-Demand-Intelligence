@@ -15,9 +15,19 @@
 
 The date range describes the current local extract; 2026 coverage is partial through 29 October. A future project update can add another period by retrieving the expanded range.
 
-## Planned second source: Datenservice Öffentlicher Einkauf (DÖE)
+## Second source: Datenservice Öffentlicher Einkauf (DÖE)
 
-DÖE is planned to extend German coverage with national notices, including below-threshold procurement. It has not yet been ingested or joined to the TED dataset. Before combining records, document its export/API scope, publication dates, identifiers, licensing and attribution, and define source-aware duplicate handling.
+| Field | Current value |
+|---|---|
+| Source | DÖE Publication Service Open Data API |
+| Access | `GET /api/notice-exports` with `pubMonth` and `format=csv.zip` |
+| Pilot period | September 2026 |
+| Pilot profile | 19 normalized CSV tables; 477,492 rows; 23,517 notice versions and 23,357 distinct notice identifiers |
+| Version key | `noticeIdentifier` + `noticeVersion` |
+| Staging | Separate `doe_raw_*` tables in the local MySQL schema |
+| Documentation | [Open Data API](https://oeffentlichevergabe.de/documentation/swagger-ui/opendata/index.html#/opendata/getExportAsEforms) · [Publication policy](https://oeffentlichevergabe.de/ui/de/publicationPolicy) |
+
+The monthly export contains all notice versions published in that month, so the DÖE source is not limited to below-threshold notices. Threshold classification and cross-source deduplication are defined in the analytical layer after reviewing legal-basis and notice-type fields. The September pilot includes 2,568 notice versions without `procedureLegalBasis`; these remain unclassified until the mapping is documented. Raw CSV exports remain local and are not committed.
 
 ## Selected fields and reference data
 
