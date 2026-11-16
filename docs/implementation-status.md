@@ -17,7 +17,11 @@ This log separates work verified on the project owner's Windows laptop from file
 - Added the contract-nature analysis to Power BI and linked the view to the notices table by `notice_id`.
 - Formatted the KPI with thousands separators and count labels in thousands for readability.
 - Added selected dashboard screenshots to the repository.
-- Profiled the September 2026 DÖE monthly CSV export and prepared a version-aware loader for its 19 normalized tables.
+
+## Repository deliverables
+
+- Added a source-isolated DÖE monthly CSV loader with a dry-run mode, month-specific reload behavior, and tests for source table naming and notice-version profiling.
+- Documented the September 2026 pilot structure, fields, source key, and threshold-classification boundary.
 
 ## Current query and data coverage
 
@@ -36,7 +40,7 @@ The TED `contract_nature` field stores lot-level JSON values. The MySQL view pro
 ## Sources and next stages
 
 - **TED:** primary source for the current loaded dataset and report.
-- **DÖE:** planned second source for German below-threshold procurement notices. Acquisition, schema mapping, deduplication, and integration are future work.
+- **DÖE:** September 2026 pilot profiled; the repository loader stages CSV tables under `doe_raw_*` names and preserves notice versions. Threshold classification and shared-layer deduplication are the next modeling steps.
 - **Repository code:** includes the DÖE monthly loader, its usage guide, and starter SQL. The populated database and TED working ingestion script remain local.
 
 ## Data handling
