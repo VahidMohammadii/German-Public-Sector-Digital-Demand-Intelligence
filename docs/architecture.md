@@ -4,7 +4,7 @@
 
 `TED notice API → Python ingestion → MySQL → Power BI Desktop`
 
-The TED-to-MySQL data load is complete locally for the scope listed in [the data-source register](data-sources.md). Power BI is connected to the local database and an initial report is being built. The reusable ingestion script, populated database, and PBIX are not yet committed to GitHub.
+The TED-to-MySQL data load is complete locally for the scope listed in [the data-source register](data-sources.md). Power BI is connected to the local database and the two-page TED report is functional. The DÖE monthly CSV loader is in the repository; the populated database and PBIX remain local.
 
 ```mermaid
 flowchart LR
@@ -29,7 +29,7 @@ The DÖE monthly loader stages the normalized CSV files in separate `doe_raw_*` 
 
 ### Source connectors and ingestion
 
-The Python workflow sends the selected TED query, retrieves pages using iteration tokens, handles transient failures, and loads records to MySQL. The current working script remains local and must be reviewed for credentials and environment-specific configuration before it is added to the repository.
+The Python workflow sends the selected TED query, retrieves pages using iteration tokens, handles transient failures, and loads records to MySQL. The working TED script remains local. The DÖE loader reads the official monthly CSV ZIP or an extracted folder and stages tables with a `doe_raw_*` prefix.
 
 ### MySQL model
 
