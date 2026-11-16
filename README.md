@@ -14,13 +14,23 @@ This project examines published procurement notices to make patterns in buyers, 
 
 - **TED scope:** German buyers; publication dates from **2016-10-28 through 2026-10-29** (inclusive).
 - **Loaded dataset:** **1,316,938 distinct notices** in the local MySQL database.
-- **Dashboard:** Power BI Desktop is connected to MySQL. Current report visuals include total distinct notices, top 10 CPV categories, annual publication trend, TED notice types with readable labels, and a monthly trend that can be filtered by year.
-- **Time coverage:** 2026 is partial through 29 October. The documented range can be extended later by retrieving another period.
-- **Contract nature:** Standardization of lot-level contract-nature values is planned. The category analysis will be added after the MySQL view is implemented and validated.
+- **Dashboard:** The two-page Power BI report includes a distinct-notice KPI, annual and monthly publication trends, the top 10 CPV categories, TED notice types with readable labels, and notice counts by contract nature.
+- **Contract nature:** A MySQL view normalizes lot-level JSON values into distinct notice–contract-nature pairs. A notice is counted once within each nature category; categories can overlap.
+- **Time coverage:** 2026 is partial through 29 October.
 - **Next source:** Germany's Datenservice Öffentlicher Einkauf (DÖE) is planned as a second source for below-threshold notices; it has not yet been integrated.
-- **Repository contents:** reusable starter SQL and project documentation are committed. The working ingestion script, populated database, and Power BI report remain local and are not included in this repository yet.
+- **Repository contents:** reusable starter SQL, project documentation, and selected dashboard screenshots are committed. The working ingestion script, populated database, and Power BI report remain local.
 
 See the [Power BI dashboard notes](docs/powerbi-dashboard.md) and [implementation status](docs/implementation-status.md) for details.
+
+## Dashboard preview
+
+### Market Overview
+
+![Market Overview dashboard](assets/Dash_1.PNG)
+
+### Time & Contract Analysis
+
+![Time and Contract Analysis dashboard](assets/Dash_2.PNG)
 
 ## Data flow
 
@@ -40,13 +50,14 @@ Python retrieves TED notices using iteration-token pagination and loads structur
 
 - `docs/`: project scope, architecture, data sources, dashboard notes, and implementation status
 - `code/database/schema/`: starter MySQL schema
-- `code/analytics/metrics/`: draft metric definitions
-- `powerbi/`: report and screenshot documentation; the PBIX is currently local
+- `code/analytics/metrics/`: metric definitions
+- `assets/`: selected dashboard screenshots
+- `powerbi/`: report documentation; the PBIX remains local
 - `data/`: local workspace guidance; raw bulk data is not committed
 
 ## Reproducibility and data handling
 
-The local database and Power BI file depend on the owner's Windows setup. Credentials, API continuation tokens, checkpoint files, and the bulk extract are intentionally excluded. Setup instructions and sanitized, reusable ingestion code are the next repository deliverables.
+The local database and Power BI file depend on the owner's Windows setup. Credentials, API continuation tokens, checkpoint files, and the bulk extract are intentionally excluded. Setup instructions and sanitized, reusable ingestion code are planned repository deliverables.
 
 TED records represent published notices available in the selected source and query scope. The notice count is a count of distinct notice records, not a measure of contract value or total German public procurement.
 
