@@ -17,7 +17,7 @@ This project examines published procurement notices to make patterns in buyers, 
 - **Dashboard:** The two-page Power BI report includes a distinct-notice KPI, annual and monthly publication trends, the top 10 CPV categories, TED notice types with readable labels, and notice counts by contract nature.
 - **Contract nature:** A MySQL view normalizes lot-level JSON values into distinct notice–contract-nature pairs. A notice is counted once within each nature category; categories can overlap.
 - **Time coverage:** 2026 is partial through 29 October.
-- **DÖE pilot:** The September 2026 monthly export has been profiled, and a version-aware loader stages its CSV tables separately from TED. Below-threshold classification and the shared analytical model are the next steps.
+- **DÖE pilot:** The September 2026 monthly export has been profiled, and a version-aware loader is ready to stage its CSV tables separately from TED. Below-threshold classification and the shared analytical model are the next steps.
 - **Repository contents:** project documentation, selected dashboard screenshots, starter SQL, and reusable DÖE monthly staging code are committed. The populated database and Power BI report remain local.
 
 See the [Power BI dashboard notes](docs/powerbi-dashboard.md) and [implementation status](docs/implementation-status.md) for details.
@@ -52,6 +52,7 @@ Python retrieves TED notices using iteration-token pagination and loads structur
 
 - `docs/`: project scope, architecture, data sources, dashboard notes, and implementation status
 - `code/database/schema/`: starter MySQL schema
+- `code/ingestion/doe/`: DÖE monthly CSV staging loader and guide
 - `code/analytics/metrics/`: metric definitions
 - `assets/`: selected dashboard screenshots
 - `powerbi/`: report documentation; the PBIX remains local
@@ -65,7 +66,7 @@ TED records represent published notices available in the selected source and que
 
 ## Sources and reuse
 
-TED is the source for the current report. DÖE is being staged separately so that legal-basis classification and cross-source duplicate handling can be defined before the sources are combined. Review the [data-source register](docs/data-sources.md) for source links, scope, and data-handling notes. Source data terms and attribution requirements should be checked before redistribution; this repository does not include the downloaded bulk data.
+TED is the source for the current report. The DÖE loader prepares a separate staging layer so legal-basis classification and cross-source duplicate handling can be defined before the sources are combined. Review the [data-source register](docs/data-sources.md) for source links, scope, and data-handling notes. Source data terms and attribution requirements should be checked before redistribution; this repository does not include the downloaded bulk data.
 
 ## Project documentation
 
