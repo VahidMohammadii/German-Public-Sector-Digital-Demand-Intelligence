@@ -17,8 +17,8 @@ This project examines published procurement notices to make patterns in buyers, 
 - **Dashboard:** The two-page Power BI report includes a distinct-notice KPI, annual and monthly publication trends, the top 10 CPV categories, TED notice types with readable labels, and notice counts by contract nature.
 - **Contract nature:** A MySQL view normalizes lot-level JSON values into distinct notice–contract-nature pairs. A notice is counted once within each nature category; categories can overlap.
 - **Time coverage:** 2026 is partial through 29 October.
-- **Next source:** Germany's Datenservice Öffentlicher Einkauf (DÖE) is planned as a second source for below-threshold notices; it has not yet been integrated.
-- **Repository contents:** reusable starter SQL, project documentation, and selected dashboard screenshots are committed. The working ingestion script, populated database, and Power BI report remain local.
+- **DÖE pilot:** The September 2026 monthly export has been profiled, and a version-aware loader stages its CSV tables separately from TED. Below-threshold classification and the shared analytical model are the next steps.
+- **Repository contents:** project documentation, selected dashboard screenshots, starter SQL, and reusable DÖE monthly staging code are committed. The populated database and Power BI report remain local.
 
 See the [Power BI dashboard notes](docs/powerbi-dashboard.md) and [implementation status](docs/implementation-status.md) for details.
 
@@ -57,7 +57,7 @@ Python retrieves TED notices using iteration-token pagination and loads structur
 
 ## Reproducibility and data handling
 
-The local database and Power BI file depend on the owner's Windows setup. Credentials, API continuation tokens, checkpoint files, and the bulk extract are intentionally excluded. Setup instructions and sanitized, reusable ingestion code are planned repository deliverables.
+The local database and Power BI file depend on the owner's Windows setup. Credentials, API continuation tokens, checkpoint files, and the bulk extract are intentionally excluded. The repository includes a reusable DÖE monthly loader and setup instructions. The populated database and source credentials remain local.
 
 TED records represent published notices available in the selected source and query scope. The notice count is a count of distinct notice records, not a measure of contract value or total German public procurement.
 
