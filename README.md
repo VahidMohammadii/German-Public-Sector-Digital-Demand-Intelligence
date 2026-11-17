@@ -13,11 +13,11 @@ This project examines published procurement notices to make patterns in buyers, 
 ## Current results
 
 - **TED scope:** German buyers; publication dates from **2016-10-28 through 2026-10-29** (inclusive).
-- **Loaded dataset:** **1,316,938 distinct notices** in the local MySQL database.
+- **Loaded TED dataset:** **1,316,938 distinct notices** in the local MySQL database.
 - **Dashboard:** The two-page Power BI report includes a distinct-notice KPI, annual and monthly publication trends, the top 10 CPV categories, TED notice types with readable labels, and notice counts by contract nature.
 - **Contract nature:** A MySQL view normalizes lot-level JSON values into distinct notice–contract-nature pairs. A notice is counted once within each nature category; categories can overlap.
 - **Time coverage:** 2026 is partial through 29 October.
-- **Next source:** Germany's Datenservice Öffentlicher Einkauf (DÖE) is planned as a second source for below-threshold notices; it has not yet been integrated.
+- **DÖE staging:** The September 2026 DÖE export is loaded into local MySQL staging tables. The raw `doe_raw_notice` and `doe_raw_purpose` tables are being explored in Power Query; DÖE has not been integrated into the TED analytical model or report. See [DÖE staging and Power Query status](docs/doe-staging-and-power-query.md).
 - **Repository contents:** reusable starter SQL, project documentation, and selected dashboard screenshots are committed. The working ingestion script, populated database, and Power BI report remain local.
 
 See the [Power BI dashboard notes](docs/powerbi-dashboard.md) and [implementation status](docs/implementation-status.md) for details.
@@ -36,7 +36,7 @@ See the [Power BI dashboard notes](docs/powerbi-dashboard.md) and [implementatio
 
 `TED API → Python → MySQL → Power BI Desktop`
 
-Python retrieves TED notices using iteration-token pagination and loads structured data into MySQL. MySQL stores notices, CPV classifications, and ingestion-run metadata. Power BI connects to the relational model for interactive analysis.
+TED is the source for the current report. DÖE is in a separate local staging and Power Query exploration workflow; it is not yet part of the report model. Python retrieves TED notices using iteration-token pagination and loads structured data into MySQL.
 
 ## Skills demonstrated
 
@@ -63,7 +63,7 @@ TED records represent published notices available in the selected source and que
 
 ## Sources and reuse
 
-TED is the primary source for the current analysis. DÖE is a planned addition for national below-threshold coverage. Review the [data-source register](docs/data-sources.md) for source links, scope, and data-handling notes. Source data terms and attribution requirements should be checked before redistribution; this repository does not include the downloaded bulk data.
+TED is the primary source for the current analysis. DÖE is being staged locally as a potential source for national below-threshold coverage; it is not yet combined with TED. Review the [data-source register](docs/data-sources.md) and [DÖE staging notes](docs/doe-staging-and-power-query.md) for source scope and data-handling details. Source data terms and attribution requirements should be checked before redistribution; this repository does not include the downloaded bulk data.
 
 ## Project documentation
 
@@ -71,4 +71,5 @@ TED is the primary source for the current analysis. DÖE is a planned addition f
 - [Implementation status](docs/implementation-status.md)
 - [Project charter](docs/project-charter.md)
 - [Data sources](docs/data-sources.md)
+- [DÖE staging and Power Query](docs/doe-staging-and-power-query.md)
 - [Power BI dashboard notes](docs/powerbi-dashboard.md)
