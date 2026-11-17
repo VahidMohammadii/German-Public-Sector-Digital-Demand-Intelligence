@@ -15,9 +15,11 @@
 
 The date range describes the current local extract; 2026 coverage is partial through 29 October. A future project update can add another period by retrieving the expanded range.
 
-## Planned second source: Datenservice Öffentlicher Einkauf (DÖE)
+## Secondary source under evaluation: Datenservice Öffentlicher Einkauf (DÖE)
 
-DÖE is planned to extend German coverage with national notices, including below-threshold procurement. It has not yet been ingested or joined to the TED dataset. Before combining records, document its export/API scope, publication dates, identifiers, licensing and attribution, and define source-aware duplicate handling.
+The September 2026 DÖE monthly export has been loaded into local MySQL staging tables. Selected raw tables (`doe_raw_notice` and `doe_raw_purpose`) are being inspected in Power Query. This is a local staging and ETL preparation step; DÖE has not been joined to TED or included in the Power BI analytical report.
+
+Before integration, document the export's exact scope, publication-date coverage, identifiers, licensing and attribution, and define source-aware duplicate handling. Preserve the raw fields and source provenance during transformation. See [DÖE staging and Power Query status](doe-staging-and-power-query.md).
 
 ## Selected fields and reference data
 
@@ -31,8 +33,9 @@ The local setup includes CPV reference descriptions retrieved from TED reference
 - A notice count is not equivalent to total procurement value or all purchasing by German public bodies.
 - Award information may be absent or not linkable to an original notice.
 - Buyer, supplier, CPV, and geographic fields may be missing or inconsistent.
-- The current extract ends on 2026-10-29; the 2026 annual value is therefore partial.
+- The current TED extract ends on 2026-10-29; the 2026 annual value is therefore partial.
+- DÖE coverage and overlap with TED have not yet been quantified for the staged month.
 
 ## Data handling and reuse
 
-Do not commit credentials, continuation tokens, checkpoint files, or the populated database. Review the source's current terms and attribution requirements before redistributing downloaded records. The repository contains documentation and starter SQL, not a bulk extract.
+Do not commit credentials, continuation tokens, checkpoint files, the populated database, or the raw monthly export. Review the sources' current terms and attribution requirements before redistributing downloaded records. The repository contains documentation and starter SQL, not a bulk extract.
